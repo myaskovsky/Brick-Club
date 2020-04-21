@@ -7,63 +7,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom CSS -->
     <!-- Can not resolve directory <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">-->
     <link rel="stylesheet" href="../../../static/css/style.css">
 
-    <title>{% block title %}{% endblock %}</title>
+    {% if title %}
+    <title>Brick club - {{ title }}</title>
+    {% else %}
+    <title>Brick club</title>
+    {% endif %}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-        <a class="navbar-brand" href="/">Brick Club</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav" id="navigation">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/catalog">Sets</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <a class="navbar-brand" href="/">Brick Club</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" id="navigation">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.catalog') }}">Sets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+            </li>
+        </ul>
+    </div>
 
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                {% if username %}
+                <a class="nav-link" href="{{ url_for('main.profile') }}">{{ username }}</a>
+                {% else %}
+                <a class="nav-link" href="{{ url_for('users.sign_in') }}">Sign In</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if username %}
+                <a class="nav-link">Sign Out</a>
+                {% else %}
+                <a class="nav-link" href="{{ url_for('users.sign_up') }}">Sign Up</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <main>
-        {% block main %}{% endblock %}
-    </main>
+<main role="main" class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages%}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</main>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script><!-- Import our custom JavaScript -->
-    <!-- Can not resolve directory <script src="{{ url_for('static', filename='js/app.js') }}"></script>-->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script><!-- Import our custom JavaScript -->
+<!-- Can not resolve directory <script src="{{ url_for('static', filename='js/app.js') }}"></script>-->
 
-    <!-- move next code in separate js file-->
-    <script type="text/javascript">
-        const currentLocation = location.href;
-        const menuItem = document.querySelectorAll('.nav-link');
-        const menuLength = menuItem.length
-        for (let i = 0; i<menuLength; i++){
-            if(menuItem[i].href == currentLocation){
-                menuItem[i].className += " active"
-            }
+<!-- move next code in separate js file-->
+<script type="text/javascript">
+    const currentLocation = location.href;
+    const menuItem = document.querySelectorAll('.nav-link');
+    const menuLength = menuItem.length
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItem[i].href == currentLocation) {
+            menuItem[i].className += " active"
         }
-    </script>
+    }
+</script>
 </body>
 
 </html>

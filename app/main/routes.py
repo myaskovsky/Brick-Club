@@ -2,6 +2,9 @@ from flask import Blueprint, render_template
 
 main = Blueprint('main', __name__)
 
+#username = 'Yaroslav'
+#username =  None
+
 posts = [
     {
         'title': 'Post 1',
@@ -69,19 +72,19 @@ sets = [
 @main.route("/")
 @main.route("/home")
 def home():
-    return render_template("public/home.html", posts=posts)
+    return render_template("public/home.html", posts=posts, title='Home')
 
 
 @main.route("/catalog")
 def catalog():
-    return render_template("public/catalog.html", sets=sets)
+    return render_template("public/catalog.html", sets=sets, title='Catalog')
 
 
 @main.route("/profile")
 def profile():
-    return render_template("public/profile.html")
+    return render_template("public/profile.html", title='Profile')
 
 
 @main.route("/about")
 def about():
-    return render_template("public/about.html")
+    return render_template("public/about.html", title='About')
