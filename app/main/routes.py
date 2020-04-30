@@ -38,6 +38,7 @@ sets = [
         'article': '75019',
         'name': 'AT-TE',
         'age': '12+',
+        'season': 'summer 2020',
         'price': '100$',
         'pieces': '360',
         'description': 'AT-TE is a republic armored vehicle'
@@ -46,6 +47,7 @@ sets = [
         'article': '75019',
         'name': 'AT-TE',
         'age': '12+',
+        'season': 'summer 2020',
         'price': '100$',
         'pieces': '360',
         'description': 'AT-TE is a republic armored vehicle'
@@ -62,17 +64,32 @@ sets = [
         'article': '75019',
         'name': 'AT-TE',
         'age': '12+',
+        'season': 'summer 2020',
         'price': '100$',
         'pieces': '360',
         'description': 'AT-TE is a republic armored vehicle'
     }
 ]
 
+comments = [
+
+    {
+        'author': 'John',
+        'text': 'Where is my dog?'
+    },
+    {
+        'author': 'Manager',
+        'text': 'On the reception, Sir'
+    }
+
+
+]
+
 
 @main.route("/")
 @main.route("/home")
 def home():
-    return render_template("public/home.html", posts=posts, title='Home')
+    return render_template("public/home.html", posts=posts, comments=comments, title='Home')
 
 
 @main.route("/catalog")

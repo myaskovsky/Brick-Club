@@ -8,19 +8,18 @@
     <div class="container">
         <div class="row">
             {% for set in sets %}
-                <div class="col-md-4">
-                    <div class="card box-shadow card-section">
-                        <!-- WTF&?! img doesnt appear! -->
-                        <img class="card-img-top"
-                             data-src="https://24.lv/images/thumbnails/722/505/detailed/133/0007873_lego_star_wars_at_te_75019.jpg"
-                             alt="Card image cap">
+            <div class="col-md-3">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="../../static/img/legos.jpg"
+                         alt="alternative">
 
-                        <div class="card-body">
-                            <a class="card-article" href="#">{{ set.article + ' ' + set.name }}</a>
-                            <a class="card-price">{{ set.price }}</a>
-                        </div>
+                    <div class="card-body">
+                        <a class="card-link" href="#">{{ set.article + ' ' + set.name }}</a>
+                        <a class="card-price">{{ set.price }}</a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>

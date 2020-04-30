@@ -72,6 +72,10 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+.comment-section {
+  border-top: 1px solid #e3e3e3
+}
+
 
 /* Cards styles on catalog page */
 .card-section {

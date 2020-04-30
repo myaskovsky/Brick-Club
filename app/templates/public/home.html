@@ -5,19 +5,27 @@
 {% block content %}
 
 <div class="container">
-        <div class="col-md-12">
-            {% for post in posts %}
-            <article class="media content-section">
+    <div class="col-md-12">
+        {% for post in posts %}
+            <div class="content-section">
+
                 <div class="media-body">
                     <div class="article-metadata">
                         <small class="text-muted">{{ post.date_posted }}</small>
                     </div>
-                    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+                    <h4><a class="article-title" href="#">{{ post.title }}</a></h4>
                     <p class="article-content">{{ post.content }}</p>
                 </div>
-            </article>
-            {% endfor %}
-        </div>
+
+                {% for comment in comments %}
+                    <div class="comment-section">
+                        <a class="comment-author" href="#">{{ comment.author }}</a>
+                        <p class="comment-content">{{ comment.text }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
