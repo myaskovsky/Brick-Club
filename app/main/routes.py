@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, request, render_template
+from app.models import Post
 
 main = Blueprint('main', __name__)
 
-#username = 'Yaroslav'
-#username =  None
 
 posts = [
     {
@@ -72,7 +71,6 @@ sets = [
 ]
 
 comments = [
-
     {
         'author': 'John',
         'text': 'Where is my dog?'
@@ -81,14 +79,13 @@ comments = [
         'author': 'Manager',
         'text': 'On the reception, Sir'
     }
-
-
 ]
 
 
 @main.route("/")
 @main.route("/home")
 def home():
+    # TODO: create profile page, add posts and sets to db,
     return render_template("public/home.html", posts=posts, comments=comments, title='Home')
 
 
