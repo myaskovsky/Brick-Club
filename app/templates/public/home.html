@@ -6,24 +6,35 @@
 
 <div class="container">
     <div class="col-md-12">
-        {% for post in posts %}
-            <div class="content-section">
+        {% for post in posts.items %}
+        <div class="content-section">
 
-                <div class="media-body">
-                    <div class="article-metadata">
-                        <small class="text-muted">{{ post.date_posted }}</small>
-                    </div>
-                    <h4><a class="article-title" href="#">{{ post.title }}</a></h4>
-                    <p class="article-content">{{ post.content }}</p>
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small class="text-muted">{{ post.date_posted }}</small>
                 </div>
-
-                {% for comment in comments %}
-                    <div class="comment-section">
-                        <a class="comment-author" href="#">{{ comment.author }}</a>
-                        <p class="comment-content">{{ comment.text }}</p>
-                    </div>
-                {% endfor %}
+                <h4><a class="article-title" href="#">{{ post.title }}</a></h4>
+                <p class="article-content">{{ post.content }}</p>
             </div>
+
+            {% for comment in comments %}
+            <div class="comment-section">
+                <a class="comment-author" href="#">{{ comment.author }}</a>
+                <p class="comment-content">{{ comment.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if posts.page == page_num %}
+                    <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
         {% endfor %}
     </div>
 </div>

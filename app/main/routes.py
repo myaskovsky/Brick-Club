@@ -1,9 +1,9 @@
 from flask import Blueprint, request, render_template
-from app.models import Post
+from app.models import Post, Set
 
 main = Blueprint('main', __name__)
 
-
+'''
 posts = [
     {
         'title': 'Post 1',
@@ -69,6 +69,7 @@ sets = [
         'description': 'AT-TE is a republic armored vehicle'
     }
 ]
+'''
 
 comments = [
     {
@@ -86,11 +87,15 @@ comments = [
 @main.route("/home")
 def home():
     # TODO: create profile page, add posts and sets to db,
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template("public/home.html", posts=posts, comments=comments, title='Home')
 
 
 @main.route("/catalog")
 def catalog():
+    page = request.args.get('page', 1, type=int)
+    sets = Set.query.order_by(Set.year.desc()).paginate(page=page, per_page=5)
     return render_template("public/catalog.html", sets=sets, title='Catalog')
 
 
