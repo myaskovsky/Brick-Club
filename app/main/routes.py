@@ -3,35 +3,8 @@ from app.models import Post, Set
 
 main = Blueprint('main', __name__)
 
-'''
-posts = [
-    {
-        'title': 'Post 1',
-        'content': 'First content',
-        'date_posted': 'April 5, 2020'
-    },
-    {
-        'title': 'Post 2',
-        'content': 'Second content',
-        'date_posted': 'April 9, 2020'
-    },
-    {
-        'title': 'Post 3',
-        'content': 'Third Content',
-        'date_posted': 'April 15, 2020'
-    },
-    {
-        'title': 'Post 4',
-        'content': 'Fourth Content',
-        'date_posted': 'April 16, 2020'
-    },
-    {
-        'title': 'Post 5',
-        'content': 'Fifth Content',
-        'date_posted': 'April 16, 2020'
-    }
-]
 
+'''
 sets = [
     {
         'article': '75019',
@@ -95,7 +68,8 @@ def home():
 @main.route("/catalog")
 def catalog():
     page = request.args.get('page', 1, type=int)
-    sets = Set.query.order_by(Set.year.desc()).paginate(page=page, per_page=5)
+    sets = Set.query.order_by(Set.year.desc()).paginate(page=page, per_page=20)
+
     return render_template("public/catalog.html", sets=sets, title='Catalog')
 
 

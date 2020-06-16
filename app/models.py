@@ -32,6 +32,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    comments = db.relationship('Comment', backref='title', lazy='dynamic')
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
