@@ -85,23 +85,32 @@ a.article-title:hover {
 }
 
 
-
-
-
+/* Comment section o posts*/
 .comment-section {
-  margin: 10px;
+  margin: 0 0 10px 10px;
+  padding: 0;
 }
 
-/*
-comment-header {
-  border-bottom: 1px solid #e3e3e3;
+.comment-line {
+  margin: 0 0;
 }
-*/
+
 .comment-profile-img {
   height: 75px;
   width: 75px;
+  /*margin-top: 10px;*/
 }
 
+.comment-field {
+  border-color: white;
+  margin-left: 15px;
+  height: 75px;
+  color: grey;
+}
+
+.comment-field:hover {
+  border-color: white;
+}
 
 
 

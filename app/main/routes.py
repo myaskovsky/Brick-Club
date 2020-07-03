@@ -1,68 +1,26 @@
 from flask import Blueprint, request, render_template
-from app.models import Post, Set
+from flask_login import current_user
+from app.models import Post, Set, Comment
+
 
 main = Blueprint('main', __name__)
-
-
-'''
-sets = [
-    {
-        'article': '75019',
-        'name': 'AT-TE',
-        'age': '12+',
-        'season': 'summer 2020',
-        'price': '100$',
-        'pieces': '360',
-        'description': 'AT-TE is a republic armored vehicle'
-    },
-{
-        'article': '75019',
-        'name': 'AT-TE',
-        'age': '12+',
-        'season': 'summer 2020',
-        'price': '100$',
-        'pieces': '360',
-        'description': 'AT-TE is a republic armored vehicle'
-    },
-{
-        'article': '75019',
-        'name': 'AT-TE',
-        'age': '12+',
-        'price': '100$',
-        'pieces': '360',
-        'description': 'AT-TE is a republic armored vehicle'
-    },
-    {
-        'article': '75019',
-        'name': 'AT-TE',
-        'age': '12+',
-        'season': 'summer 2020',
-        'price': '100$',
-        'pieces': '360',
-        'description': 'AT-TE is a republic armored vehicle'
-    }
-]
-'''
-
-comments = [
-    {
-        'author': 'John',
-        'text': 'Where is my dog?'
-    },
-    {
-        'author': 'Manager',
-        'text': 'On the reception, Sir'
-    }
-]
 
 
 @main.route("/")
 @main.route("/home")
 def home():
-    # TODO: create profile page, add posts and sets to db,
+
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template("public/home.html", posts=posts, comments=comments, title='Home')
+
+    '''
+    form = AddCommentForm()
+    if form.validate_on_submit():
+        if current_user.is_authenticated:
+            comment = Comment(text=form.text.data, user=current_user, post=)
+    '''
+
+    return render_template("public/home.html", posts=posts, title='Home')
 
 
 @main.route("/catalog")

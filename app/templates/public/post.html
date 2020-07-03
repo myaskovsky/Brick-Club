@@ -1,0 +1,52 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="content-section">
+
+
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <h4><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h4>
+                <p class="article-content">{{ post.content }}</p>
+            </div>
+
+
+            <p style="text-align:left;">Comments</p>
+            <div class="comment-section col">
+                {% if post.comments  %}
+                    {% if post.comments.count() > 0 %}
+                        {% for comment in post.comments %}
+                            <div class="comment row">
+                                <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + comment.user.image_file) }}">
+                                <div class="comment-content col">
+                                    <a class="comment-author">{{ comment.user.username }}</a>
+                                    <p class="comment-text">{{ comment.text }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif%}
+                {% endif %}
+
+
+                {% if current_user.is_authenticated %}
+                    <div class="comment row">
+                        <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + current_user.image_file) }}">
+                        <div class="comment-content">
+                            <textarea class="comment-field" placeholder="Your comment here..."></textarea>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -6,47 +6,53 @@
 
 <div class="container">
     <div class="col-md-12">
+
         {% for post in posts.items %}
         <div class="content-section">
-
             <div class="media-body">
                 <div class="article-metadata">
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 </div>
-                <h4><a class="article-title" href="#">{{ post.title }}</a></h4>
+                <h4><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+                </h4>
                 <p class="article-content">{{ post.content }}</p>
             </div>
 
-            <h6 class="comment-header">Comments</h6>
-            {% if post.comments  %}
-            {% if post.comments.count() > 0 %}
-                <hr>
-                {% for comment in post.comments %}
-                    <div class="comment-section row">
-                        <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + comment.user.image_file) }}">
-                        <div class="col">
-                            <a class="comment-author" href="#">{{ comment.user.username }}</a>
-                            <p class="comment-content">{{ comment.text }}</p>
+            <p style="text-align:left;">Comments
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('posts.post', post_id=post.id) }}" style="float:right;">Add comment</a>
+                {% else %}
+                    <a href="{{ url_for('users.sign_in', post_id=post.id) }}" style="float:right;">Add comment</a>
+                {% endif %}
+            </p>
+
+            <div class="comment-section">
+                {% if post.comments %}
+                    {% if post.comments.count() > 0 %}
+                        <div class="comment row">
+                            <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + post.comments[0].user.image_file) }}">
+                            <div class="comment-content col">
+                                <a class="comment-author">{{ post.comments[0].user.username }}</a>
+                                <p class="comment-content">{{ post.comments[0].text }}</p>
+                            </div>
                         </div>
-                    </div>
-            {% endfor %}
-            {% endif%}
-            {% endif %}
-
-
-
+                    {% endif%}
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
+
+
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-                {% if posts.page == page_num %}
-                    <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-                {% else %}
-                    <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-                {% endif %}
-            {% else %}
-                ...
-            {% endif %}
+        {% if page_num %}
+        {% if posts.page == page_num %}
+        <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
         {% endfor %}
     </div>
 </div>
