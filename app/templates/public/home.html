@@ -13,14 +13,14 @@
                 <div class="article-metadata">
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 </div>
-                <h4><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+                <h4><a class="article-title" href="{{ url_for('posts.show_post', post_id=post.id) }}">{{ post.title }}</a>
                 </h4>
                 <p class="article-content">{{ post.content }}</p>
             </div>
 
             <p style="text-align:left;">Comments
                 {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('posts.post', post_id=post.id) }}" style="float:right;">Add comment</a>
+                    <a href="{{ url_for('posts.show_post', post_id=post.id) }}" style="float:right;">Add comment</a>
                 {% else %}
                     <a href="{{ url_for('users.sign_in', post_id=post.id) }}" style="float:right;">Add comment</a>
                 {% endif %}

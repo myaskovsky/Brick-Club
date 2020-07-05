@@ -87,8 +87,30 @@ a.article-title:hover {
 
 /* Comment section o posts*/
 .comment-section {
-  margin: 0 0 10px 10px;
-  padding: 0;
+  margin-left: 20px;
+  padding: 0 0 0 0;
+}
+
+.comments-title {
+  text-align:left;
+  border-bottom: 1px solid #e3e3e3;
+  margin-bottom: 0px;
+}
+
+.comment {
+  border-bottom:1px solid #e3e3e3;
+  padding:0px 0px;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+
+.comment-new {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.comment-text {
+  margin-bottom: 0px;
 }
 
 .comment-line {
@@ -102,14 +124,20 @@ a.article-title:hover {
 }
 
 .comment-field {
-  border-color: white;
+  border: 1px solid #e0e0e0;
   margin-left: 15px;
+  margin-right: 10px;
   height: 75px;
   color: grey;
+  overflow: auto;
 }
 
 .comment-field:hover {
-  border-color: white;
+  border: 1px solid #9e9e9e;
+}
+
+.comment-field:active {
+  border: 1px solid #9e9e9e;
 }
 
 

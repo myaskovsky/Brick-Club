@@ -8,17 +8,15 @@
     <div class="col-md-12">
         <div class="content-section">
 
-
             <div class="media-body">
                 <div class="article-metadata">
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 </div>
-                <h4><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h4>
+                <h4><a class="article-title" href="{{ url_for('posts.show_post', post_id=post.id) }}">{{ post.title }}</a></h4>
                 <p class="article-content">{{ post.content }}</p>
             </div>
 
-
-            <p style="text-align:left;">Comments</p>
+            <p class="comments-title">Comments</p>
             <div class="comment-section col">
                 {% if post.comments  %}
                     {% if post.comments.count() > 0 %}
@@ -33,18 +31,35 @@
                         {% endfor %}
                     {% endif%}
                 {% endif %}
-
-
-                {% if current_user.is_authenticated %}
-                    <div class="comment row">
-                        <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + current_user.image_file) }}">
-                        <div class="comment-content">
-                            <textarea class="comment-field" placeholder="Your comment here..."></textarea>
-                        </div>
-                    </div>
-                {% endif %}
-
             </div>
+
+            <div class="comment-new-section row">
+                {% if current_user.is_authenticated %}
+
+                    <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + current_user.image_file) }}">
+
+                    <form class="row" method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {% if form.text.errors %}
+                                {{ form.text(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.text.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                            {% else %}
+                                {{ form.text(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-outline-info") }}
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+
 
         </div>
     </div>
