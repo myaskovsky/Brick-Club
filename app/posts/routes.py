@@ -8,7 +8,7 @@ from app.posts.forms import AddCommentForm
 
 posts = Blueprint('posts', __name__)
 
-
+#This is comment
 @posts.route("/show_post/<int:post_id>", methods=['GET', 'POST'])
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
