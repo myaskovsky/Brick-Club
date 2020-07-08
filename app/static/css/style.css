@@ -87,9 +87,10 @@ a.article-title:hover {
 
 /* Comment section o posts*/
 .comment-section {
-  margin-left: 20px;
-  padding: 0 0 0 0;
+  padding-left: 15px;
+  padding-top: 5px;
 }
+
 
 .comments-title {
   text-align:left;
@@ -101,7 +102,6 @@ a.article-title:hover {
   border-bottom:1px solid #e3e3e3;
   padding:0px 0px;
   margin-top: 5px;
-  margin-right: 20px;
 }
 
 .comment-new {
@@ -123,6 +123,24 @@ a.article-title:hover {
   /*margin-top: 10px;*/
 }
 
+.comment-input {
+  width: auto;
+  padding: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.comment-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-forms {
+  width: available;
+}
+
+/*
 .comment-field {
   border: 1px solid #e0e0e0;
   margin-left: 15px;
@@ -139,7 +157,7 @@ a.article-title:hover {
 .comment-field:active {
   border: 1px solid #9e9e9e;
 }
-
+*/
 
 
 /* Cards styles on catalog page */
@@ -151,20 +169,25 @@ a.article-title:hover {
   margin-bottom: 20px;
 }
 
-.card-article {
+/* 3 last lines make nice break for long text */
+.card-text {
+  margin: 0;
+  display: block;
+  font-size: smaller;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card-img-top {
+
+}
+
+.card-article, .card-name  {
   color: #444444;
 }
 
-a.card-article:hover {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.card-name {
-  color: #444444;
-}
-
-a.card-name:hover{
+a.card-name:hover, a.card-article:hover{
   color: #428bca;
   text-decoration: none;
 }

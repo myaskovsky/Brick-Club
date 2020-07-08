@@ -33,12 +33,12 @@
                 {% endif %}
             </div>
 
-            <div class="comment-new-section row">
+            <div class="comment-section row">
                 {% if current_user.is_authenticated %}
 
                     <img class="rounded-circle comment-profile-img" src="{{ url_for('static', filename='img/profile_pics/' + current_user.image_file) }}">
 
-                    <form class="row" method="POST" action="">
+                    <form class="comment-forms row" method="POST" action="">
                         {{ form.hidden_tag() }}
                         <div class="form-group">
                             {% if form.text.errors %}
@@ -49,12 +49,12 @@
                                         {% endfor %}
                                     </div>
                             {% else %}
-                                {{ form.text(class="form-control form-control-lg") }}
+                                {{ form.text(class="form-control form-control-sm comment-input") }}
                             {% endif %}
                         </div>
 
-                        <div class="form-group">
-                            {{ form.submit(class="btn btn-outline-info") }}
+                        <div class="form-group comment-btn">
+                            {{ form.submit(class="btn btn-outline-info btn-sm") }}
                         </div>
                     </form>
                 {% endif %}

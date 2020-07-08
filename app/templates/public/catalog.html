@@ -12,13 +12,13 @@
 
                 <div class="card">
                     <img class="card-img-top"
-                         src="../../static/img/sets_pics/set_default.jpg"
+                         src="{{ url_for('static', filename='img/sets_pics/' + set.set_image) }}"
                          alt="alternative">
 
-                    <div class="card-body">
-                        <a class="card-link" href="#">{{ set.article }}</a>
-                        <a class="card-link" href="#">{{ set.name }}</a>
-                        <a class="card-price">{{ set.price }}</a>
+                    <div class="col">
+                        <a class="card-text card-article" href="{{ url_for('sets.show_set', set_id=set.id) }}">{{ set.article }}</a>
+                        <a class="card-text card-name" href="{{ url_for('sets.show_set', set_id=set.id) }}">{{ set.name }}</a>
+                        <a class="card-text card-price">{{ set.price }}</a>
                     </div>
                 </div>
 

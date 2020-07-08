@@ -31,11 +31,13 @@ def create_app(config_class=Config):
     from app.users.routes import users
     from app.adm.routes import adm
     from app.posts.routes import posts
+    from app.sets.routes import sets
 
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(adm)
     app.register_blueprint(posts)
+    app.register_blueprint(sets)
 
     with app.app_context():
         db.create_all()
