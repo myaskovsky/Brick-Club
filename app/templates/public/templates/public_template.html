@@ -6,100 +6,65 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <!-- Custom CSS -->
     <!-- Can not resolve directory <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">-->
     <link rel="stylesheet" href="../../../static/css/style.css">
 
     {% if title %}
-    <title>Brick club - {{ title }}</title>
+        <title>Brick club - {{ title }}</title>
     {% else %}
-    <title>Brick club</title>
+        <title>Brick club</title>
     {% endif %}
+
 </head>
 
 <body>
+    <nav>
+        <div class="logo">
+            <h4>Brick Club</h4>
+        </div>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-    <a class="navbar-brand" href="/">Brick Club</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav" id="navigation">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.catalog') }}">Sets</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
-            </li>
+        <ul class="nav-links">
+            <li><a class="nav-link" href="{{ url_for('main.home') }}">Home</a></li>
+            <li><a class="nav-link" href="{{ url_for('main.catalog') }}">Sets</a></li>
+            <li><a class="nav-link" href="{{ url_for('main.about') }}">About</a></li>
+
+            {% if current_user.is_authenticated %}
+                <li><a class="nav-link" href="{{ url_for('main.profile') }}">{{ current_user.username }}</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.sign_out') }}">Sign Out</a></li>
+            {% else %}
+                <li><a class="nav-link" href="{{ url_for('users.sign_in') }}">Sign In</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.sign_up') }}">Sign Up</a></li>
+            {% endif %}
         </ul>
-    </div>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.profile') }}">{{ current_user.username }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('users.sign_out') }}">Sign Out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('users.sign_in') }}">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('users.sign_up') }}">Sign Up</a>
-                    </li>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-</nav>
 
-<main role="main" class="container">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages%}
-    <div class="alert alert-{{ category }}">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
-</main>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script><!-- Import our custom JavaScript -->
-<!-- Can not resolve directory <script src="{{ url_for('static', filename='js/app.js') }}"></script>-->
 
-<!-- move next code in separate js file-->
-<script type="text/javascript">
-    const currentLocation = location.href;
-    const menuItem = document.querySelectorAll('.nav-link');
-    const menuLength = menuItem.length
-    for (let i = 0; i < menuLength; i++) {
-        if (menuItem[i].href == currentLocation) {
-            menuItem[i].className += " active"
-        }
-    }
-</script>
+    <main role="main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages%}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Can not resolve directory <script src="{{ url_for('static', filename='js/app.js') }}"></script>-->
+    <script src="../../../static/js/nav_bar_script.js"></script>
+
 </body>
-
 </html>
 
 
