@@ -45,7 +45,7 @@
         </form>
 
         <div class="field-support-content">
-            <small class="field-support">Forgot Password? <a class="field-support-link" href="#">Reset password</a></small>
+            <small class="field-support">Forgot Password? <a class="field-support-link" href="{{ url_for('users.reset_request') }}">Reset password</a></small>
         </div>
         <div>
             <small class="field-support">Need An Account? <a class="field-support-link" href="{{ url_for('users.sign_up') }}">Sign Up Now</a></small>
